@@ -1,0 +1,22 @@
+---
+import ProductLayout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects')
+
+  return projects.map(project => ({
+    params: { id: project.data.id },
+    props: { project }
+  }))
+}
+
+const { project } = Astro.props
+---
+
+<ProductLayout title={`${project.data.title} - Real Website`}>
+  <a href="/projects">Go back to Projects</a>
+
+  <h1>{project.data.title}</h1>
+  <p>{project.data.description}</p>
+</ProductLayout>

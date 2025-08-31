@@ -1,0 +1,18 @@
+---
+import MainLayout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection('blog');
+---
+<MainLayout title="Blog | Hilarious Horizon">
+  <h1>Blog</h1>
+  <div class="grid">
+    {posts.map((b) => (
+      <article class="card">
+        <h3>{b.data.title}</h3>
+        <p class="muted">by {b.data.author}</p>
+        <a href={`/blog/${b.data.id}`}>Read More →</a>
+      </article>
+    ))}
+  </div>
+</MainLayout>

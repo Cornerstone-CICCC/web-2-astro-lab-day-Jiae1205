@@ -1,11 +1,34 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import MainLayout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// 최근 항목 (원하면 갯수 조절)
+const projects = (await getCollection('projects')).slice(0, 3);
+const posts = (await getCollection('blog')).slice(0, 3);
 ---
+<MainLayout title="Home | Hilarious Horizon">
+  <h1>Welcome 👋</h1>
+  <p class="muted">Demo site created with Astro Content Collections</p>
 
-<Layout>
-	<Welcome />
-</Layout>
+  <h2 style="margin-top:2rem;">Latest Projects</h2>
+  <div class="grid">
+    {projects.map((p) => (
+      <article class="card">
+        <h3>{p.data.title}</h3>
+        <p class="muted">by {p.data.author}</p>
+        <a href={`/projects/${p.data.id}`}>Read More →</a>
+      </article>
+    ))}
+  </div>
+
+  <h2 style="margin-top:2rem;">Latest Articles</h2>
+  <div class="grid">
+    {posts.map((b) => (
+      <article class="card">
+        <h3>{b.data.title}</h3>
+        <p class="muted">by {b.data.author}</p>
+        <a href={`/blog/${b.data.id}`}>Read More →</a>
+      </article>
+    ))}
+  </div>
+</MainLayout>

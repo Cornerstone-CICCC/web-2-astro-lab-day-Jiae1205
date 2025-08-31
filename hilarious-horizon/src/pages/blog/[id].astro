@@ -1,0 +1,22 @@
+---
+import ProductLayout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const blog = await getCollection('blog')
+
+  return blog.map(blog => ({
+    params: { id: blog.data.id },
+    props: { blog }
+  }))
+}
+
+const { blog } = Astro.props
+---
+
+<ProductLayout title={`${blog.data.title} - Real Website`}>
+  <a href="/blog">Go back to Blog</a>
+
+  <h1>{blog.data.title}</h1>
+  <p>{blog.data.description}</p>
+</ProductLayout>

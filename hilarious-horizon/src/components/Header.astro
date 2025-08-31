@@ -1,0 +1,15 @@
+---
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' },
+];
+---
+<header style="padding:1rem 0; border-bottom:1px solid #e5e7eb;">
+  <nav style="display:flex; gap:1rem; flex-wrap:wrap;">
+    {nav.map((item) => (
+      <a href={item.href} style="text-decoration:none; color:#111827;">{item.label}</a>
+    ))}
+  </nav>
+</header>
